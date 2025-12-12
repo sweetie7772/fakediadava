@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Паспорт громадянина України</title>
+    <link rel="stylesheet" href="/index.css" />
+
+    <!-- Додаємо для iPhone/PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Паспорт" />
+
+    <!-- Іконка для iPhone -->
+    <link rel="apple-touch-icon" href="./icon.png" />
+
+    <!-- Маніфест (для Android і PWA) -->
+    <link rel="manifest" href="./manifest.json" />
+  </head>
+  <body>
+    <div class="certificate">
+      <div class="card" id="passportCard">
+        <!-- Лицьова сторона -->
+        <div class="card-face card-front">
+          <div class="title">Паспорт громадянина<br />України</div>
+
+          <div class="bornDate">
+            <img src="./5323484459157884926 (1).jpg" alt="" class="photo" />
+            <div class="bornDate2">
+              <div class="wrap">
+                <div>Дата</div>
+                <div>народження:</div>
+              </div>
+              23.03.2007
+              <br />
+              <div class="wrap">
+                <div>Номер:</div>
+              </div>
+              34008583167
+              <img
+                src="./5323484459157884925-removebg-preview.png"
+                alt=""
+                width="80"
+              />
+            </div>
+          </div>
+
+          <marquee class="mark" scrollamount="3">
+            Документ діє під час воєнного стану. Ой у лузі червона калина
+            похилилася, чогось наша славна України зажурилася. А ми тую червону
+            калину підіймемо, а ми нашу славну Україну, гей, гей,
+            розвеселимо!Документ діє під час воєнного стану. Ой у лузі червона
+            калина похилилася, чогось наша славна України зажурилася. А ми тую
+            червону калину підіймемо, а ми нашу славну Україну, гей, гей,
+            розвеселимо!Документ діє під час воєнного стану. Ой у лузі червона
+            калина похилилася, чогось наша славна України зажурилася. А ми тую
+            червону калину підіймемо, а ми нашу славну Україну, гей, гей,
+            розвеселимо!
+          </marquee>
+
+          <div class="carts">
+            <div class="name">
+              <span>Гордієнко</span>
+              <span>Давид</span>
+              <span>Віталійович</span>
+            </div>
+            <div class="icon">
+              <img
+                src="./изображение_2025-09-11_133951239-removebg-preview.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Зворотня сторона -->
+        <div class="card-face card-back">
+          <div class="timer" id="timerText">Код діятиме ще 03:00 хв</div>
+          <img class="qr" width="300px" src="./qr.jpg" alt="" />
+          <img src="./qr2.png" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Нижній бар -->
+    <div class="bottom-bar">
+      <div>
+        <img width="55" src="./strichka.png" alt="Стрічка" />
+        <span>Стрічка</span>
+      </div>
+      <div>
+        <img width="75" src="./document.png" alt="Документи" />
+        <span>Документи</span>
+      </div>
+      <div>
+        <img width="60" src="./service.png" alt="Сервіси" />
+        <span>Сервіси</span>
+      </div>
+      <div>
+        <img width="45" src="./menu.png" alt="Меню" />
+        <span>Меню</span>
+      </div>
+    </div>
+
+    <script>
+      const card = document.getElementById("passportCard");
+      const timerEl = document.getElementById("timerText");
+      let countdown;
+      let timeLeft = 180;
+
+      function updateTimer() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        let formatted =
+          (minutes < 10 ? "0" : "") +
+          minutes +
+          ":" +
+          (seconds < 10 ? "0" : "") +
+          seconds;
+        timerEl.textContent = "Код діятиме ще " + formatted + " хв";
+      }
+
+      function startTimer() {
+        clearInterval(countdown);
+        timeLeft = 180;
+        updateTimer();
+
+        countdown = setInterval(() => {
+          if (timeLeft <= 0) {
+            clearInterval(countdown);
+            timerEl.textContent = "Час дії коду вийшов";
+            return;
+          }
+          updateTimer();
+          timeLeft--;
+        }, 1000);
+      }
+
+      card.addEventListener("click", () => {
+        card.classList.toggle("is-flipped");
+        if (card.classList.contains("is-flipped")) {
+          startTimer();
+        } else {
+          clearInterval(countdown);
+          timeLeft = 180;
+          timerEl.textContent = "Код діятиме ще 03:00 хв";
+        }
+      });
+    </script>
+  </body>
+</html>
